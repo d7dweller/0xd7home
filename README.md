@@ -1,2 +1,2 @@
 # 0xd7home
-Ansible repository for home network
+Ansible repository for home network management.

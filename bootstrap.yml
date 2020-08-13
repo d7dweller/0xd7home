@@ -1,0 +1,24 @@
+--- # Creates ansible system user to be used for further playbook runs.
+- hosts: all
+  tasks:
+  - name: Add system user "awx_runner"
+    user:
+      name: awx_runner
+      state: present
+      system: true
+
+  - name: copy ssh key
+    authorized_key:
+      user: awx_runner
+      manage_dir: true
+      key: "{{ lookup('file', 'files/awx_runner.pub') }}"
+      state: present
+
+  - name: Create sudoers file
+    copy:
+      dest: /etc/sudoers.d/ansible
+      content: "awx_runner ALL=(ALL) NOPASSWD: ALL"
+      validate: "visudo -cf %s"
+      mode: '0600'
+      owner: root
+      group: root
