@@ -15,7 +15,7 @@
   - name: Ensure "Include" statement is present in zone file
     lineinfile:
       path: "{{ dns_zonefile }}"
-      line: "$INCLUDE {{ dns_addins_dest }} {{ dns_domain }}"
+      line: "$INCLUDE {{ dns_addins_dest }}"
       insertafter: EOF
       backup: true
     notify: restart named
@@ -23,7 +23,7 @@
   - name: Ensure "Include" statement is present in reverse file
     lineinfile:
       path: "{{ dns_reversefile }}"
-      line: "$INCLUDE {{ dns_addins_reverse_dest }} {{ dns_domain_reverse }}"
+      line: "$INCLUDE {{ dns_addins_reverse_dest }}"
       insertafter: EOF
       backup: true
     notify: restart named
